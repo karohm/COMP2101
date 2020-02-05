@@ -23,25 +23,15 @@ hostname=$(hostname)
 weekday=`date +"%A"`
 time=`date +"%T"`
 
-if [ "$weekday" == "Monday" ]; then
-  heading="Monday is nice"
-elif [ "$weekday" == "Tuesday" ]; then
-  heading="Tuesday is beautiful"
-elif [ "$weekday" == "Wednesday" ]; then
-  heading="Wednesday is charming"
-elif [ "$weekday" == "Thursday" ]; then
-  heading="Thursday  is boring"
-elif [ "$weekday" == "Friday" ]; then
-  heading="Friday  is wonderful"
-elif [ "$weekday" == "Saturday" ]; then
- heading="Saturday  is calming"
-elif [ "$weekday" == "Sunday" ]; then
-  heading="Sunday  is awesome"
+if [ "$weekday" == "Monday" ]; then  heading="Monday is nice"
+elif [ "$weekday" == "Tuesday" ]; then heading="Tuesday is beautiful"
+elif [ "$weekday" == "Wednesday" ]; then heading="Wednesday is charming"
+elif [ "$weekday" == "Thursday" ]; then heading="Thursday  is boring"
+elif [ "$weekday" == "Friday" ]; then heading="Friday  is wonderful"
+elif [ "$weekday" == "Saturday" ]; then heading="Saturday  is calming"
+elif [ "$weekday" == "Sunday" ]; then heading="Sunday  is awesome"
 
 fi
-###############
-# Main        #
-###############
 
 display=$(cat <<EOF
 
@@ -51,6 +41,9 @@ It is $weekday at $time
 
 EOF
 )
+###############
+# Main        #
+###############
 
 cat <<EOF
 
