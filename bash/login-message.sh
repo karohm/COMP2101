@@ -30,7 +30,7 @@ elif [ "$weekday" == "Tuesday" ]; then
 elif [ "$weekday" == "Wednesday" ]; then
   heading="Wednesday is charming"
 elif [ "$weekday" == "Thursday" ]; then
-  heading="Thursday  is charming"
+  heading="Thursday  is boring"
 elif [ "$weekday" == "Friday" ]; then
   heading="Friday  is wonderful"
 elif [ "$weekday" == "Saturday" ]; then
