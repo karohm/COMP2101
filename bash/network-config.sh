@@ -23,7 +23,7 @@
 #         printing out literal text.
 # sample of desired output:
 #   Router Address  : 192.168.2.1
-#   Router Hostname : router-name-from-hosts-fil
+#   Router Hostname : router-name-from-hosts-file
 
 # we use the hostname command to get our system name
 # the LAN name is looked up using the LAN address in case it is different from the system name
@@ -33,27 +33,24 @@
 # e.g.
 #   interface_name=$(ip a |awk '/: e/{gsub(/:/,"");print $2}')
 
-#cat <<EOF
-#Hostname        : $(hostname)
-#LAN Address     : $(ip a s $(ip a |awk '/: e/{gsub(/:/,"");print $2}')|awk '/inet /{gsub(/\/.*/,"");print $2}')
-#LAN Hostname    : $(getent hosts $(ip a s $(ip a |awk '/: e/{gsub(/:/,"");print $2}'))|awk '/inet /{gsub(/\/.*/,"");print $2}' | awk '{print $2}')
-#External IP     : $(curl -s icanhazip.com)
-#External Name   : $(getent hosts $(curl -s icanhazip.com) | awk '{print $2}')
-#EOF
 
-#hostname=$(hostname)
-#lanaddress=$(ip a s $(ip a |awk '/: e/{gsub(/:/,"");print $2}')|awk '/inet /{gsub(/\/.*/,"");print $2}')
-#lanhostname=$(getent hosts $(ip a s $(ip a |awk '/: e/{gsub(/:/,"");print $2}'))|awk '/inet /{gsub(/\/.*/,"");print $2}' | awk '{print $2}')
-#externalip=$(curl -s icanhazip.com)
-#externalname=$(getent hosts $(curl -s icanhazip.com) | awk '{print $2}')
+# new script
 
-echo $hostname
-echo $lanaddress
-echo $lanhostname
-echo $externalip
-echo $externalname
+hostname=$(hostname)
+lanaddress=$(ip a s $(ip a |awk '/: e/{gsub(/:/,"");print $2}')|awk '/inet /{gsub(/\/.*/,"");print $2}')
+lanhostname=$(getent hosts $(ip a s $(ip a |awk '/: e/{gsub(/:/,"");print $2}'))|awk '/inet /{gsub(/\/.*/,"");print $2}' | awk '{print $2}')
+externalip=$(curl -s icanhazip.com)
+externalname=$(getent hosts $(curl -s icanhazip.com) | awk '{print $2}')
+routeraddress=$(ip route list | awk '{if(NR==1) print $3;}')
+routername=$(nslookup $routeraddress |awk '{if(NR==1) print $4}')
 
-newname=$(awk 'grep ubuntu /etc/hosts'; print $1)
-newip=$(nslookup 127.0.1.1)
-echo $newname
-echo $newip
+cat <<EOF
+Hostname        : $hostname
+LAN Address     : $lanaddress
+LAN Hostname    : $lanhostname
+External IP     : $externalip
+External Name   : $externalname
+Router IP       : $routeraddress
+Router name     : $routername
+
+EOF

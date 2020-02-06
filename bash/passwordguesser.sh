@@ -25,5 +25,36 @@ then
   echo "passwords match"
 else
   echo "passwords dont match"
-
+  echo "please enter a password  "
+  read myString
+  if [ $myString = $referenceString ]
+  then
+    echo "password match"
+  else
+    echo "password dont match"
+    echo "plese enter a password "
+    read myString
+      if [ $myString = $referenceString ]
+      then
+        echo "password match"
+      else
+        echo "password dont match"
+        echo "plese enter a password "
+        read myString
+        if [ $myString = $referenceString ]
+        then
+          echo "password match"
+        else
+          echo "password dont match"
+          echo "plese enter a password "
+          read myString
+          if [ $myString = $referenceString ]
+          then
+            echo "password match"
+          else
+            echo "password dont match"
+            fi
+          fi
+        fi
+      fi
 fi
