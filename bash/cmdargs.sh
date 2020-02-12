@@ -5,12 +5,35 @@
 myargs=()
 # loop through the command line arguments
 while [ $# -gt 0 ]; do
+  case "$1" in
+    -h )
+    programname=$(basename "$0")
+    echo "Usage: $programname [-h | --help [-d][-v]]"
+     ;;
+     -v )
+     verbose="on"
+     ;;
+     -d )
+     if [ "$2" != "" ]; then
+       #statements
+       debuglevel="$2"
+       
+     else
+       echo "debuglevel is empty"
+       exit 1
+     fi
+     debug="on"
+
+     shift
+
+     ;;
+   esac
   # tell the user how many things are left on the command line
-  echo "There are $# things left to process on the command line."
+  #echo "There are $# things left to process on the command line."
   # add whatever is in $1 to the myargs array
   myargs+=("$1")
   # tell the user what we did
-  echo "Added \'$1\' to the arguments array"
+  #echo "Added \'$1\' to the arguments array"
 
 # TASK 1: instead of just adding arguments to an array, use a case statement to recognize some options
 #          Options to recognize: -h for help, -v for verbose mode, -d N for debug mode with N being a single digit number
@@ -19,16 +42,26 @@ while [ $# -gt 0 ]; do
 #          If the debug optionis recognized, set a variable with the debug level from the number given after the -d on the command line
 #             display an error if the user gave the -d option without a single digit number after it
 #          Anything that wasn't recognized on the command line should still go into the myargs array
-
   # each time through the loop, shift the arguments left
   # this decrements the argument count for us
   shift
   # tell the user we shifted things
-  echo "Shifted command line, leaving $# things left to process."
-  echo "--------------------------"
+  #echo "Shifted command line, leaving $# things left to process."
+  #echo "--------------------------"
   # go back to the top of the loop to see if anything is left to work on
 done
 echo "Done"
+
+#printing
+
+cat <<EOF
+
+Verbose :$verbose
+Debug :$debug
+Debuglevel :$debuglevel
+Myargs :${myargs[*]}
+
+EOF
 
 # TASK2: display the settings and myargs contents
 #         Tell the user if vebose mode is on
