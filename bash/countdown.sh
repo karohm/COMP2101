@@ -53,7 +53,9 @@ done
 ### Function to trap the exit signal and send out the message
 
 function errorr {
-  echo " you got the secret to exit"
+  echo "you got the secret to exit"
+  exit
+
 }
 #################################
 # traps
