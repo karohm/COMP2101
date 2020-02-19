@@ -50,12 +50,18 @@ while [ $sleepCount -gt 0 ]; do
 done
 }
 
+### Function to trap the exit signal and send out the message
+
+function errorr {
+  echo " you got the secret to exit"
+}
 #################################
 # traps
 #################################
 
 trap sleepCount=$numberOfSleeps INT
-trap echo "you got the secret to exit" QUIT
+trap errorr QUIT
+
 #### Main Program
 
 # Process command line parameters
